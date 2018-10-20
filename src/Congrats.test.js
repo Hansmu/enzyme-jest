@@ -1,11 +1,7 @@
 import React from 'react';
-import Enzyme from 'enzyme';
-import EnzymeAdapter from 'enzyme-adapter-react-16';
 
 import Congrats from './Congrats';
 import {checkPropTypes, findByTestAttribute, setup} from "../test/test-utils";
-
-Enzyme.configure({adapter: new EnzymeAdapter()});
 
 const setupCongrats = (props = {}, state = null) => {
     const setupProps = {
