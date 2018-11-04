@@ -1,9 +1,10 @@
 import {shallow} from "enzyme/build";
 import React from "react";
+import {applyMiddleware, createStore} from "redux";
 import checkPropTypesExternal from 'check-prop-types';
 
 import rootReducer from '../src/reducers';
-import {createStore} from "redux";
+import {middlewares} from "../src/configureStore";
 
 export const setupConnected = (Component, initialState = {}, props = {}, state = null) => {
     const store = storeFactory(initialState);
@@ -18,7 +19,8 @@ export const setupConnected = (Component, initialState = {}, props = {}, state =
 };
 
 const storeFactory = (initialState) => {
-    return createStore(rootReducer, initialState);
+    const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
+    return createStoreWithMiddleware(rootReducer, initialState);
 };
 
 export const setup = (Component, props = {}, state = null) => {
