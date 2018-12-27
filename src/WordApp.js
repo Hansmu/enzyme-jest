@@ -7,7 +7,11 @@ import Input from './Input';
 
 import {getSecretWord} from "./actions";
 
-class WordApp extends Component {
+export class UnconnectedWordApp extends Component {
+    componentDidMount() {
+        this.props.getSecretWord();
+    }
+
     render(){
         return (
             <div className={'container'}>
@@ -25,4 +29,4 @@ const mapStateToProps = state => {
     return {success, guessedWords, secretWord};
 };
 
-export default connect(mapStateToProps, {getSecretWord})(WordApp);
+export default connect(mapStateToProps, {getSecretWord})(UnconnectedWordApp);

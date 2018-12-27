@@ -1,7 +1,8 @@
 import React from 'react';
 
-import {findByTestAttribute, setupConnected} from "../test/test-utils";
-import WordApp from './WordApp';
+import {setupConnected} from "../test/test-utils";
+import WordApp, {UnconnectedWordApp} from './WordApp';
+import {shallow} from "enzyme";
 
 
 const setup = (initialState = {}) => {
@@ -35,4 +36,23 @@ describe('redux props', () => {
         const getSecretWordProp = wrapper.instance().props.getSecretWord;
         expect(getSecretWordProp).toBeInstanceOf(Function);
     });
+});
+
+describe('WordApp', () => {
+    const getSecretWordMock = jest.fn();
+    const props = {
+        getSecretWord: getSecretWordMock,
+        success: false,
+        guessedWords: []
+    };
+
+    test('getSecretWord runs on WordApp mount', () => {
+        const wrapper = shallow(<UnconnectedWordApp {...props}/>);
+
+        wrapper.instance().componentDidMount();
+
+        const getSecretWordCallCount = getSecretWordMock.mock.calls.length;
+
+        expect(getSecretWordCallCount).toBe(1);
+    })
 });
