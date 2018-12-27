@@ -18,7 +18,7 @@ export const setupConnected = (Component, initialState = {}, props = {}, state =
 
 };
 
-const storeFactory = (initialState) => {
+export const storeFactory = (initialState) => {
     const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
     return createStoreWithMiddleware(rootReducer, initialState);
 };
